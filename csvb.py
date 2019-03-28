@@ -10,4 +10,3 @@ with open("yingping.csv", "a", encoding='utf-8', newline='') as csvfile:
     comment_time = '1111111111111'
     spamwriter.writerow(
         [user_name, star_rate, short_comment, vote, comment_time])
-    #ceshiaaaaaaaaaaaaaaaaaa
