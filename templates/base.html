@@ -1,0 +1,48 @@
+{% load static %}
+<!doctype html>
+
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap-4.0.0/dist/css/bootstrap.min.css' %}">
+        {% block header_extends %}{% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+            <a class="navbar-brand" href="{% url 'home' %}">数据分析</a></li>
+            <div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class='navbar-toggler-icon'></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    {{ user.username }} <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a class="dropdown-item" href="{% url 'user_info' %}">个人信息</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'web_logout' %}?from={{ request.get_full_path }}">注销</a></li>  
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="nav-item {% block nav_login_active %}{% endblock %}">
+                                <a class="nav-link" href="{% url 'web_login' %}">登录</a></li>
+                            <li class="nav-item {% block nav_register_active %}{% endblock %}">
+                                <a class="nav-link" href="{% url 'web_register' %}">注册</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block content %}{% endblock %}
+        <script type="text/javascript" src={% static 'js/jquery-1.12.4.min.js' %}></script>
+        <script type="text/javascript" src={% static 'bootstrap-4.0.0/dist/js/bootstrap.min.js' %}></script>
+        {% block script_extend %}{% endblock %}
+    </body>
+</html>

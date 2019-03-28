@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    分析结果
+{% endblock %}
+
+{% block header_extends %}
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">   
+{% endblock %}
+
+{% block content %}
+<main class="container" role="main">
+    <div class="pt-3 pb-2 border-bottom">
+        <h2 class="display-5 text-left">{{ movie.name }}</h2>
+    </div>  
+    <div class="container pt-3">
+        <div class="card-group">
+            <div class="card bg-light mb-3">
+                <div class="card-header">吹得最凶</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ best_comment.username }}</h5>
+                    <p class="card-text">{{ best_comment.short_comment }}</p>
+                </div>
+                <div class="card-footer text-right">
+                    <small class="text-muted-right">{{ best_comment.star_rate }}({{ best_comment.vote }})</small>
+                </div>
+            </div>
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">踩得最狠</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ worst_comment.username }}</h5>
+                    <p class="card-text">{{ worst_comment.short_comment }}</p>
+                </div>
+                <div class="card-footer text-right">
+                    <small class="text">{{ worst_comment.star_rate }}({{ worst_comment.vote }})</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 图表 -->
+    <div class='pt-5 pb-5 d-flex flex-column align-items-center'>
+        <div class='flex-row'>
+            <div id="bar" style="width: 600px;height:500px;"></div>
+            <div id="pie" style="width: 600px;height:500px;"></div>
+        </div>
+        <div id="point" style="width: 800px;height:700px;"></div>
+    </div>
+</main>
+{% endblock %}
+
+
+{% block script_extend %}
+    <script src={% static 'js/echarts.min.js' %}></script>
+    <script src={% static 'js/dark.js' %}></script>
+    <script type="text/javascript">
+        // 数据
+        var label_list = {{ label|safe }};
+        var count_list = {{ count|safe }};
+        var point_data = {{ point|safe }};
+        // 初始化echarts实例
+        var bar = echarts.init(document.getElementById('bar'), 'dark');
+        var pie = echarts.init(document.getElementById('pie'), 'dark');
+        var point = echarts.init(document.getElementById('point'), 'dark');
+    </script>
+    <script type="text/javascript" src={% static 'js/result_charts.js' %}></script>
+{% endblock %}

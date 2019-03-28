@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  数据分析|首页
+{% endblock %}
+
+{% block header_extends %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block nav_home_active %}
+  active
+{% endblock %}
+
+{% block content %}
+<main class="container" role="main">
+    <div class="jumbotron mb-auto">
+        <h1 class="display-4">豆瓣影评分析</h1>
+        <p class="lead">基于热映电影影评进行可视化分析，影评数据来源豆瓣电影</p>
+        <hr class="my-4">
+        <!-- Button modal -->
+        <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#myModal">
+                本站指南
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">说明</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>step 1:请点击右上角登录本站</p>
+                    <p>step 2:（登录后）点选任意列表中任意电影查看分析结果</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" role="button" data-dismiss="modal">了解</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% comment %} 电影列表 {% endcomment %}
+    <div class="container">
+        {% if user.is_authenticated %}
+        <div class="row">
+        {% for movie in movie_list %}
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <img class="movie-img card-img-top" alt="Thumbnail" src={{movie.poster}}>
+                <div class="card-body">
+                  <h5 class="card-title">{{movie.name}}</h5>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div><h7>评分：{{movie.score}}</h7>
+                    </div>
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-secondary" href="{% url 'result' movie.id %}">查看分析</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+          </div>
+        {% else %}
+        {% endif %}
+    </div>
+
+    <footer class="bs-docs-footer mt-auto text-right">
+        <ul class="list-inline">
+            <li class="list-inline-item">开发者: @JerryLiang </li>
+            <li class="list-inline-item">Email: Zherui.Liang@outlook.com</li>
+        </ul>
+    </footer>
+</main>
+
+
+{% endblock %}

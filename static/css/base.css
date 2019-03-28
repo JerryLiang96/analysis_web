@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+div#mes-panel {
+    margin-top: 100px;
+}
+
+html, body{
+    height: 100%;
+}

@@ -1,0 +1,33 @@
+body {
+    background: url("/static/image/background/home_page.jpg") center no-repeat fixed;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+footer.bs-docs-footer{
+    color: white;
+}
+
+hr{
+    border-color: white;
+}
+div.jumbotron{
+    color: white;
+    background:rgba(0,0,0,0);
+}
+
+p#modal-button{
+    padding-top: 1.5em; 
+    padding-bottom: 0.5em;
+}
+
+img.movie-img{
+    height: 550px;
+    width: 100%;
+    display: block;
+}
+
